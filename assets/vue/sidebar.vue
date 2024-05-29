@@ -1,10 +1,12 @@
 <template>
     <div class="flex h-screen flex-col bg-white shadow-xl transition-all duration-300 ease-in-out"
-        :class="{ 'w-[18rem]': isOpen, 'w-[5rem]': !isOpen }">
+        :class="{ 'w-[18rem]': isOpen, 'w-[4rem]': !isOpen }">
 
-        <div class="flex items-center justify-between p-4 bg-gray-200">
+        <div class="flex items-center justify-between p-3 bg-gray-200">
             <div v-show="isOpen" class="logo">
-                <img src="../svg/logo.svg" alt="Logo" />
+                <a href="https://www.lamusee.paris">
+                    <img src="../svg/logo.svg" alt="Logo" />
+                </a>
             </div>
             <button @click="toggleSidebar" class="text-blue-gray-700 hover:text-blue-gray-900 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -16,21 +18,18 @@
 
         <nav class="flex-grow flex flex-col justify-between p-2 text-base font-normal text-blue-gray-700">
             <div>
-                <a href="#"
-                    class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
+                <a href="#" class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
                     <img src="../svg/user.svg" alt="User" class="nav-icon" />
                     <span v-show="isOpen">Liste des utilisateurs</span>
                 </a>
-                <a href="#"
-                    class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
+                <a href="#" class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
                     <img src="../svg/estimate.svg" alt="estimate" class="nav-icon" />
                     <span v-show="isOpen">Devis</span>
                 </a>
             </div>
 
-            <div class="p-4 mt-4 border-t-2 border-gray-300">
-                <a href="/logout"
-                    class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
+            <div class="mt-4 border-t-2 border-gray-300">
+                <a href="/logout" class="group flex items-center gap-2 p-2 rounded-md hover:bg-blue-gray-50 transition-colors">
                     <img src="../svg/logout.svg" alt="logout" class="logout-icon" />
                     <span v-show="isOpen">Se déconnecter</span>
                 </a>
@@ -38,6 +37,7 @@
         </nav>
     </div>
 </template>
+
 
 
 <style scoped>
