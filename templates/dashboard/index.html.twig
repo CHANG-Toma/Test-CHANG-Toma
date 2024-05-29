@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
+{% block title %}Back-office | Lamusée{% endblock %}
 
-{% block title %}Back-office{% endblock %}
 
 {% block body %}
 
-<div>
-    <h1>LAUZANAA! ✅</h1>
-</div>
+<div id="sidebar"></div>
+
+{% include './dashboard/pages/users.html.twig' %}
+
 {% endblock %}
