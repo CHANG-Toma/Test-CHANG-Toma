@@ -40,7 +40,7 @@
                 <a href="/logout"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors">
                     <img src="../svg/logout.svg" alt="logout" class="logout-icon" />
-                    <span v-show="!isOpen">Se déconnecter</span>
+                    <span v-show="!isOpen">Déconnexion</span>
                 </a>
             </div>
         </nav>
