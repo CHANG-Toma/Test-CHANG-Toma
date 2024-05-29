@@ -17,9 +17,38 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+        //$data = $userRepository->findAll();
+
+        $data = [
+            [
+                'id' => 1,
+                'firstname' => 'John',
+                'lastname' => 'Doe',
+                'email' => 'test@mail.com',
+                'gender' => 'Male',
+                'rgpd' => 'Accepté'
+            ],
+            [
+                'id' => 2,
+                'firstname' => 'Jane Doe',
+                'lastname' => 'Doe',
+                'email' => 'test2@mail.fr',
+                'gender' => 'female',
+                'rgpd' => 'Accepté'
+            ],
+            [
+                'id' => 3,
+                'firstname' => 'Jean',
+                'lastname' => 'Doe',
+                'email' => 'test3@mail.fr',
+                'gender' => 'male',
+                'rgpd' => 'Accepté'
+            ]
+        ];
+        
         return $this->render('dashboard/index.html.twig', [
-            'users' => $userRepository->findAll(),
             'path' => './dashboard/pages/users.html.twig',
+            'people' => $data
         ]);
     }
 
