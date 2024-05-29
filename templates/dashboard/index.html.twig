@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Back-office | Lamusée{% endblock %}
 
-
 {% block body %}
-
-<div id="sidebar"></div>
-
-{% include './dashboard/pages/users.html.twig' %}
-
+<div id="app">
+    <Sidebar @toggle-sidebar="toggleSidebar" :is-open="isSidebarOpen"></Sidebar>
+    <Content :is-sidebar-open="isSidebarOpen">
+        {% include path %}
+    </Content>
+</div>
 {% endblock %}

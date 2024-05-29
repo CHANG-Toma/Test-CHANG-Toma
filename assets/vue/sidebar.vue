@@ -1,9 +1,9 @@
 <template>
-    <div class="flex h-screen flex-col bg-white shadow-xl transition-all duration-300 ease-in-out"
-        :class="{ 'w-[18rem]': isOpen, 'w-[4rem]': !isOpen }">
+    <div class="flex h-screen flex-col bg-white shadow-xl transition-all duration-300 ease-in-out absolute top-0 left-0 z-50"
+        :class="{ 'w-[4rem]': isOpen, 'w-[18rem]': !isOpen }">
 
         <div class="flex items-center justify-between p-3 bg-gray-200">
-            <div v-show="isOpen" class="logo">
+            <div v-show="!isOpen" class="logo">
                 <a href="https://www.lamusee.paris">
                     <img src="../svg/logo.svg" alt="Logo" />
                 </a>
@@ -18,15 +18,15 @@
 
         <nav class="flex-grow flex flex-col justify-between p-2 text-base font-normal text-gray-700">
             <div>
-                <a href="#"
+                <a href="/users"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors mb-2">
                     <img src="../svg/user.svg" alt="User" class="nav-icon" />
-                    <span v-show="isOpen">Liste des utilisateurs</span>
+                    <span v-show="!isOpen">Liste des utilisateurs</span>
                 </a>
                 <a href="#"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors mn-2">
                     <img src="../svg/estimate.svg" alt="estimate" class="nav-icon" />
-                    <span v-show="isOpen">Devis</span>
+                    <span v-show="!isOpen">Devis</span>
                 </a>
             </div>
 
@@ -34,14 +34,12 @@
                 <a href="/logout"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors">
                     <img src="../svg/logout.svg" alt="logout" class="logout-icon" />
-                    <span v-show="isOpen">Se déconnecter</span>
+                    <span v-show="!isOpen">Se déconnecter</span>
                 </a>
             </div>
         </nav>
     </div>
 </template>
-
-
 
 <style scoped>
 .logo img {
@@ -59,20 +57,21 @@
 .logout-icon:hover {
     filter: brightness(75%);
 }
-</style>
 
+</style>
 
 <script>
 export default {
     name: 'Sidebar',
     data() {
         return {
-            isOpen: true // État initial de la sidebar
+            isOpen: true
         };
     },
     methods: {
         toggleSidebar() {
-            this.isOpen = !this.isOpen; // Bascule l'état de la sidebar
+            this.isOpen = !this.isOpen;
+            this.$emit('toggle-sidebar');
         }
     }
 }
