@@ -1,0 +1,10 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block body %}
+
+	<div class="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
+		<h1 class="text-2xl font-bold text-gray-800 mb-6">Ajouter un utilisateur</h1>
+		{{ include('user/_form.html.twig') }}
+	</div>
+
+{% endblock %}

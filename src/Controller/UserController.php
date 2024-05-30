@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,15 +11,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
-#[Route('/user')]
+#[Route('/users')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, SerializerInterface $serializer): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        $users = $userRepository->findAll();
+        $data = $serializer->serialize($users, 'json', ['groups' => 'user']);
+        //dd($data);
+
+        return $this->render('dashboard/index.html.twig', [
+            'path' => './dashboard/pages/users/users.html.twig',
+            'people' => json_decode($data, true)  //Décode le JSON pour le passer à Twig
         ]);
     }
 
@@ -26,7 +33,7 @@ class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -36,7 +43,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('dashboard/index.html.twig', [
+            'path' => './dashboard/pages/users/newUser.html.twig',
             'user' => $user,
             'form' => $form,
         ]);
@@ -45,8 +53,9 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
+        return $this->render('dashboard/index.html.twig', [
             'user' => $user,
+            'path' => './dashboard/pages/users/showUser.html.twig',
         ]);
     }
 
@@ -62,16 +71,17 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('dashboard/index.html.twig', [
             'user' => $user,
+            'path' => './dashboard/pages/users/editUser.html.twig',
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_user_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }

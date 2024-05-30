@@ -6,33 +6,46 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.')]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user'])]
     private ?int $id = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100)]
     private ?string $firstname = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100, unique: true)]
     private ?string $email = null;
 
+    #[Groups(['user'])]
+    #[ORM\Column(length: 50)]
+    private ?string $gender = null;
+
+    #[Groups(['user'])]
     #[ORM\Column]
     private ?bool $rgpd = false;
 
     #[ORM\Column(length: 100)]
     private ?string $password = null;
+
+    #[ORM\Column(length: 50, options: ['default' => 'ROLE_USER'], type: 'json')]
+    private ?array $role = [];
 
     public function getId(): ?int
     {
@@ -75,6 +88,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
     public function isRgpd(): ?bool
     {
         return $this->rgpd;
@@ -101,8 +126,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        // Return an array of roles, e.g. ['ROLE_USER']
-        return ['ROLE_USER'];
+        return $this->role;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getSalt(): ?string
