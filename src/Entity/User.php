@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -17,20 +18,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user'])]
     private ?int $id = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100)]
     private ?string $firstname = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 100, unique: true)]
     private ?string $email = null;
 
+    #[Groups(['user'])]
     #[ORM\Column(length: 50)]
     private ?string $gender = null;
 
+    #[Groups(['user'])]
     #[ORM\Column]
     private ?bool $rgpd = false;
 

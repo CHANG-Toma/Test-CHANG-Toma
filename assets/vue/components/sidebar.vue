@@ -7,7 +7,7 @@
             <!-- Placeholder for logo when sidebar is open -->
             <div v-show="!isOpen" class="logo">
                 <a href="https://www.lamusee.paris">
-                    <img src="../svg/logo.svg" alt="Logo" />
+                    <img src="../../svg/logo.svg" alt="Logo" />
                 </a>
             </div>
 
@@ -25,12 +25,12 @@
             <div>
                 <a href="/users"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors mb-2">
-                    <img src="../svg/user.svg" alt="User" class="nav-icon" />
+                    <img src="../../svg/user.svg" alt="User" class="nav-icon" />
                     <span v-show="!isOpen">Liste des utilisateurs</span>
                 </a>
                 <a href="#"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors mn-2">
-                    <img src="../svg/estimate.svg" alt="estimate" class="nav-icon" />
+                    <img src="../../svg/estimate.svg" alt="estimate" class="nav-icon" />
                     <span v-show="!isOpen">Devis</span>
                 </a>
             </div>
@@ -39,7 +39,7 @@
             <div class="mt-4 border-t-2 border-gray-300":class="{'mt-9': isOpen}">
                 <a href="/logout"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors">
-                    <img src="../svg/logout.svg" alt="logout" class="logout-icon" />
+                    <img src="../../svg/logout.svg" alt="logout" class="logout-icon" />
                     <span v-show="!isOpen">Déconnexion</span>
                 </a>
             </div>

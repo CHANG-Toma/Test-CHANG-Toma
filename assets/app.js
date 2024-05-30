@@ -3,8 +3,8 @@ import './styles/app.css';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
 
-import Sidebar from './vue/sidebar.vue';
-import Content from './vue/content.vue';
+import Sidebar from './vue/components/sidebar.vue';
+import Content from './vue/components/content.vue';
 
 const app = createApp({
     components: { Sidebar, Content },

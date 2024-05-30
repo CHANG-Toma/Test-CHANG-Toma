@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register | Lamusée
-{% endblock %}
+{% block title %}Register | Lamusée{% endblock %}
 
 {% block body %}
 	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -10,77 +9,8 @@
 		</div>
 
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-			{{ form_start(registrationForm, {'class': 'space-y-6'}) }}
-
-			{# Display global form errors #}
-			{% for error in registrationForm.vars.errors %}
-				<div class="mt-2 text-red-500">
-					<p>{{ error.message }}</p>
-				</div>
-			{% endfor %}
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.firstname, 'Prénom', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
-				<div class="mt-2">
-					{{ form_widget(registrationForm.firstname, {'attr': {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6'}}) }}
-				</div>
-			</div>
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.lastname, 'Nom', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
-				<div class="mt-2">
-					{{ form_widget(registrationForm.lastname, {'attr': {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6'}}) }}
-				</div>
-			</div>
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.gender, 'Genre', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
-				<div class="mt-2 space-x-4">
-					{{ form_widget(registrationForm.gender, {'attr': {'class': 'flex items-center'}}) }}
-				</div>
-			</div>
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.email, 'Adresse email', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}
-				) }}
-				<div class="mt-2">
-					{{ form_widget(registrationForm.email, {'attr': {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6'}}) }}
-				</div>
-                {% for error in registrationForm.email.vars.errors %}
-					<div class="text-red-500">{{ error.message }}</div>
-				{% endfor %}
-			</div>
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.password.first, 'Mot de passe', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
-				<div class="mt-2">
-					{{ form_widget(registrationForm.password.first, {'attr': {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6'}}) }}
-				</div>
-                {% for error in registrationForm.password.first.vars.errors %}
-					<div class="text-red-500">{{ error.message }}</div>
-				{% endfor %}
-			</div>
-
-			<div class="mt-2">
-				{{ form_label(registrationForm.password.second, 'Confirmer le mot de passe', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
-				<div class="mt-2">
-					{{ form_widget(registrationForm.password.second, {'attr': {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6'}}) }}
-				</div>
-				{% for error in registrationForm.password.second.vars.errors %}
-					<div class="text-red-500">{{ error.message }}</div>
-				{% endfor %}
-			</div>
-
-			<div class="flex items-center mt-2">
-				{{ form_widget(registrationForm.rgpd, {'attr': {'class': 'h-4 w-4 text-balck border-gray-300 rounded focus:ring-black'}}) }}
-				{{ form_label(registrationForm.rgpd, "J'accepte les termes et conditions", {'label_attr': {'class': 'ml-2 block text-sm leading-6 text-gray-900'}}) }}
-			</div>
-
-			<div class="mt-5">
-				<button type="submit" class="flex w-full justify-center rounded-md bg-black hover:bg-gray-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Créer un compte</button>
-			</div>
-
-			{{ form_end(registrationForm) }}
+			
+			{{ include('dashboard/components/_form.html.twig') }}
 
 			<div class="text-sm text-center mt-6">
 				<a href="{{ path('app_login') }}" class="font-medium text-black hover:text-gray-500">Déjà un compte ? Se connecter</a>
