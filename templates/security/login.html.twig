@@ -1,56 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login | Lamusée{% endblock %}
+{% block title %}Login | Lamusée
+{% endblock %}
 
 {% block body %}
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Se connecter</h2>
-    </div>
+	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+			<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Se connecter</h2>
+		</div>
 
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+			<form class="space-y-6" method="post">
+				{% if app.user %}
+					<div class="mb-3">
+						Vous etes conencté en tant que :
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Se déconnecter</a>
+					</div>
+				{% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    Vous etes conencté en tant que : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
+                {% if error %}
+                    <div class="text-red-500">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
 
-            <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Adresse email</label>
-                <div class="mt-2">
-                    <input id="email" name="email" type="email" value="{{ last_username }}" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-            </div>
+				<div>
+					<label for="email" class="block text-sm font-medium leading-6 text-gray-900">Adresse email</label>
+					<div class="mt-2">
+						<input id="email" name="email" type="email" value="{{ last_username }}" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6">
+					</div>
+				</div>
 
-            <div>
-                <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Mot de passe</label>
-                </div>
-                <div class="mt-2">
-                    <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-            </div>
+				<div>
+					<div class="flex items-center justify-between">
+						<label for="password" class="block text-sm font-medium leading-6 text-gray-900">Mot de passe</label>
+					</div>
+					<div class="mt-2">
+						<input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6">
+					</div>
+				</div>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <div class="flex items-center">
-                <input type="checkbox" name="_remember_me" id="remember_me" class="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-600">
-                <label for="remember_me" class="ml-2 block text-sm leading-6 text-gray-900">Se souvenir de moi</label>
-            </div>
+				<div class="flex items-center">
+					<input type="checkbox" name="_remember_me" id="remember_me" class="h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-gray-600">
+					<label for="remember_me" class="ml-2 block text-sm leading-6 text-gray-900">Se souvenir de moi</label>
+				</div>
 
-            <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-teal-600 hover:bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Se connecter</button>
-            </div>
+				<div>
+					<button type="submit" class="flex w-full justify-center rounded-md bg-black hover:bg-gray-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Se connecter</button>
+				</div>
 
-            <div class="text-sm text-center">
-                <a href="{{ path('app_register') }}" class="font-medium text-teal-600 hover:text-teal-500">Pas de compte ?</a>
-            </div>
-        </form>
-    </div>
-</div>
+				<div class="text-sm text-center">
+					<a href="{{ path('app_register') }}" class="font-medium text-black hover:text-gray-500">Pas de compte ?</a>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}
