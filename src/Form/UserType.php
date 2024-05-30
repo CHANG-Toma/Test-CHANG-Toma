@@ -47,7 +47,7 @@ class UserType extends AbstractType
                     'Oui' => true,
                     'Non' => false
                 ],
-                'expanded' => true, //affiche n boutons radio
+                'expanded' => true, //affiche des boutons radio
                 'multiple' => false, //sélection unique
                 'label_attr' => ['class' => 'mr-3'],
                 'label' => 'RGPD'

@@ -40,12 +40,13 @@ class RegistrationFormType extends AbstractType
                 ]
             )
             ->add('rgpd', CheckboxType::class, [
-                'mapped' => false,
+                'mapped' => true, // Permet d'enregistrer la valeur du champ dans l'entité
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions d\'utilisation.',
                     ]),
                 ],
+                'required' => true,
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
