@@ -24,7 +24,7 @@ class UserController extends AbstractController
         //dd($data);
 
         return $this->render('dashboard/index.html.twig', [
-            'path' => './dashboard/pages/users.html.twig',
+            'path' => './dashboard/pages/users/users.html.twig',
             'people' => json_decode($data, true)  //Décode le JSON pour le passer à Twig
         ]);
     }
@@ -44,7 +44,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('dashboard/index.html.twig', [
-            'path' => './dashboard/pages/newUser.html.twig',
+            'path' => './dashboard/pages/users/newUser.html.twig',
             'user' => $user,
             'form' => $form,
         ]);
@@ -55,7 +55,7 @@ class UserController extends AbstractController
     {
         return $this->render('dashboard/index.html.twig', [
             'user' => $user,
-            'path' => './dashboard/pages/showUser.html.twig',
+            'path' => './dashboard/pages/users/showUser.html.twig',
         ]);
     }
 
@@ -73,7 +73,7 @@ class UserController extends AbstractController
 
         return $this->render('dashboard/index.html.twig', [
             'user' => $user,
-            'path' => './dashboard/pages/editUser.html.twig',
+            'path' => './dashboard/pages/users/editUser.html.twig',
             'form' => $form,
         ]);
     }
