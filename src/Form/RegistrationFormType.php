@@ -19,6 +19,7 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Création du formulaire d'inscription + ajout d'un nouvel utilisateur
         $builder
             ->add('firstname')
             ->add('lastname')
@@ -28,9 +29,9 @@ class RegistrationFormType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => [
-                        'Homme' => 'male',
-                        'Femme' => 'female',
-                        'Autre' => 'other',
+                        'Homme' => 'Homme',
+                        'Femme' => 'Femme',
+                        'Autre' => 'Autre',
                     ],
                     'expanded' => true, //affiche sous forme de boutons radio
                     'multiple' => false, //sélection unique
