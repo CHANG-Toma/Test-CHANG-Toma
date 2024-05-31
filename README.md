@@ -91,11 +91,13 @@ La variable `path` dans le contrôleur Symfony transmet le chemin spécifique du
 - **Note SQL** : Le script SQL n'est pas obligatoire d'etre exécuté, il contient uniquement des données de test. Dans le cas ou, vous ne l'exécuté pas, il faudra migrer via Doctrine directement.
 - **PHPMyAdmin** : Accédez à PHPMyAdmin à l'adresse `http://localhost:8080` pour gérer directement votre base de données via une interface web.
 
+## Contact
+- **Téléphone** : 06 86 93 05 22
+- **Email** : toma11chang@gmai.com
+- **INFOS** : Si quelque chose ne fonctionne pas correctement, veuillez me contacter directement. Merci :smiley:
+
 ## Licence
 Ce projet est sous licence MIT
 
-```sh
-php bin/console server:run
-
 ![alt text](./assets/img/image.png)
-```
+
