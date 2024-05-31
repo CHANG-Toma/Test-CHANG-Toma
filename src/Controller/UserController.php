@@ -13,14 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-#[Route('/users')]
+#[Route('/users')] // Préfixe de toutes les routes de ce controller
 class UserController extends AbstractController
 {
+    // Afficher la liste des utilisateurs
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, SerializerInterface $serializer): Response
     {
-        $users = $userRepository->findAll();
-        $data = $serializer->serialize($users, 'json', ['groups' => 'user']);
+        $users = $userRepository->findAll(); // Récupère tous les utilisateurs
+        $data = $serializer->serialize($users, 'json', ['groups' => 'user']); // Sérialise les données en JSON
         //dd($data);
 
         return $this->render('dashboard/index.html.twig', [
@@ -29,6 +30,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Créer un nouvel utilisateur
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -36,6 +38,7 @@ class UserController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
@@ -50,6 +53,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Afficher un utilisateur en particulier
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -59,12 +63,14 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Modifier un utilisateur
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
@@ -78,9 +84,11 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Supprimer un utilisateur
     #[Route('/{id}', name: 'app_user_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        // Si le token CSRF est valide
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();

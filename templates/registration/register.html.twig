@@ -2,6 +2,8 @@
 
 {% block title %}Register | Lamusée{% endblock %}
 
+{# Formulaire d'inscription #}
+
 {% block body %}
 	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -9,7 +11,7 @@
 		</div>
 
 		<div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-			{{ include('user/_form.html.twig') }}
+			{{ include('user/_form.html.twig') }} {# include du formulaire existant #}
 
 			<div class="text-sm text-center mt-6">
 				<a href="{{ path('app_login') }}" class="font-medium text-black hover:text-gray-500">Déjà un compte ? Se connecter</a>

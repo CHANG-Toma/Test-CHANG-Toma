@@ -6,6 +6,7 @@ use App\Repository\EstimateRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 
+// Modèle de données pour les devis avec tous ces champs  + accesseurs
 
 #[ORM\Entity(repositoryClass: EstimateRepository::class)]
 class Estimate
@@ -304,31 +305,4 @@ class Estimate
 
         return $this;
     }
-
-    public function __serialize(): array
-    {
-        return [
-            $this->id,
-            $this->estimatedate,
-            $this->clientName,
-            $this->clientEmail,
-            $this->clientPhone,
-            $this->clientAddress,
-            $this->clientCity,
-            $this->dresstype,
-            $this->customizations,
-            $this->fabric,
-            $this->fabricColor,
-            $this->size,
-            $this->pricefabric,
-            $this->quantity,
-            $this->totalExTax,
-            $this->tva,
-            $this->totalIncTax,
-            $this->balandeDue,
-            $this->expectedDeliveryDate,
-            $this->deliveryMode,
-        ];
-    }
-
 }

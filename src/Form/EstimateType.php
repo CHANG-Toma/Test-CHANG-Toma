@@ -12,8 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+// Création du formulaire de devis avec tous ces champs + labels
+
 class EstimateType extends AbstractType
 {
+    // Création du formulaire de devis avec tous ces champs + labels
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -67,9 +70,9 @@ class EstimateType extends AbstractType
             ])
             ->add('expectedDeliveryDate', DateType::class, [
                 'label' => 'Date de livraison prévue',
-                'widget' => 'single_text',
-                'required' => true,
-                'empty_data' =>  (new \DateTime())->format('Y-m-d'),
+                'widget' => 'single_text', // pour afficher le calendrier
+                'required' => true, // pour rendre le champ obligatoire
+                'empty_data' =>  (new \DateTime())->format('Y-m-d'), // pour afficher la date actuelle  
             ])
             ->add('deliveryMode', TextType::class, [
                 'label' => 'Mode de livraison',
@@ -78,6 +81,7 @@ class EstimateType extends AbstractType
                 'label' => 'Enregistrer le devis']);
     }
 
+    // Configuration des options du formulaire
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

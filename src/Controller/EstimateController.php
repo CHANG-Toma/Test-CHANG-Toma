@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Estimate;
 use App\Form\EstimateType;
-use App\Form\EstimateFormType;
 use App\Repository\EstimateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/estimate')]
+#[Route('/estimate')] // Préfixe de toutes les routes de ce controller
 class EstimateController extends AbstractController
 {
+    // Afficher la liste des devis
     #[Route('/', name: 'app_estimate_index', methods: ['GET'])]
     public function index(EstimateRepository $estimateRepository): Response
     {
@@ -24,6 +24,7 @@ class EstimateController extends AbstractController
         ]);
     }
 
+    // Créer un nouveau devis
     #[Route('/new', name: 'app_estimate_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -31,6 +32,7 @@ class EstimateController extends AbstractController
         $form = $this->createForm(EstimateType::class, $estimate);
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
 
             if (!$estimate->getEstimatedate()) {
@@ -50,6 +52,7 @@ class EstimateController extends AbstractController
         ]);
     }
 
+    // Afficher un devis
     #[Route('/{id}', name: 'app_estimate_show', methods: ['GET'])]
     public function show(Estimate $estimate, EntityManagerInterface $entityManager): Response
     {
@@ -62,12 +65,14 @@ class EstimateController extends AbstractController
         ]);
     }
 
+    // Modifier un devis
     #[Route('/{id}/edit', name: 'app_estimate_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Estimate $estimate, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EstimateType::class, $estimate);
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$estimate->getEstimatedate()) {
                 $estimate->setEstimatedate(new \DateTime());
@@ -85,6 +90,7 @@ class EstimateController extends AbstractController
         ]);
     }
 
+    // Supprimer un devis
     #[Route('/{id}', name: 'app_estimate_delete', methods: ['POST'])]
     public function delete(Request $request, Estimate $estimate, EntityManagerInterface $entityManager): Response
     {
@@ -96,6 +102,7 @@ class EstimateController extends AbstractController
         return $this->redirectToRoute('app_estimate_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    // Télécharger un devis en pdf
     #[Route('/{id}/pdf', name: 'app_estimate_pdf', methods: ['GET'])]
     public function downloadPdf(Request $request, Estimate $estimate, \Twig\Environment $twig): Response
     {
@@ -112,9 +119,9 @@ class EstimateController extends AbstractController
         $dompdf->loadHtml($html);
         // créer le pdf
         $dompdf->render();
-        // Pour télécharger le pdf
-        $dompdf->stream("estimate-{$estimate->getId()}.pdf", [
-            'Attachment' => 0 // mettre à 1 pour télécharger directement
+        // Pour télécharger le pdf avec le nom du client
+        $dompdf->stream("Devis-{$estimate->getClientName()}.pdf", [
+            'Attachment' => 1 // mettre à 0 pour avoir un visu avant de DL
         ]);
 
         return new Response($dompdf->output(), 200, [
