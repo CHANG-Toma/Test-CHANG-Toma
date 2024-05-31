@@ -49,10 +49,7 @@
 											<a href="{{ path('app_estimate_edit', {'id': estimate.id}) }}" class="inline-flex items-center gap-x-2 text-sm font-semibold text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg px-3 py-2">
 												Modifier
 											</a>
-											<form method="post" action="{{ path('app_estimate_delete', {'id': estimate.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce devis ?');">
-												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ estimate.id) }}">
-												<button class="inline-flex items-center gap-x-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg px-3 py-2">Supprimer</button>
-											</form>
+											{{ include('dashboard/pages/estimate/_delete_form.html.twig') }}
 										</td>
 									</tr>
 								{% endfor %}
@@ -67,19 +64,19 @@
 {% endblock %}
 
 {% block javascripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('hs-table-with-pagination-search');
-    const tableRows = document.querySelectorAll('tbody tr');
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const searchInput = document.getElementById('hs-table-with-pagination-search');
+const tableRows = document.querySelectorAll('tbody tr');
 
-    searchInput.addEventListener('keyup', function(e) {
-        const searchValue = e.target.value.toLowerCase().trim();
+searchInput.addEventListener('keyup', function (e) {
+const searchValue = e.target.value.toLowerCase().trim();
 
-        tableRows.forEach(row => {
-            const rowValue = row.textContent.toLowerCase().trim();
-            row.style.display = rowValue.includes(searchValue) ? '' : 'none';
-        });
-    });
+tableRows.forEach(row => {
+const rowValue = row.textContent.toLowerCase().trim();
+row.style.display = rowValue.includes(searchValue) ? '' : 'none';
 });
-</script>
+});
+});
+	</script>
 {% endblock %}

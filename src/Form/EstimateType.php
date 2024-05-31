@@ -16,8 +16,6 @@ class EstimateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $disabled = $options['disabled'] ?? false; // pour désactiver le bouton save pour le /show :)
-
         $builder
             ->add('clientName', TextType::class, [
                 'label' => 'Nom du client',
@@ -77,15 +75,13 @@ class EstimateType extends AbstractType
                 'label' => 'Mode de livraison',
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Créer un devis',
-                'disabled' => $disabled]);
+                'label' => 'Enregistrer le devis']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Estimate::class,
-            'disabled' => false
         ]);
     }
 }

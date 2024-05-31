@@ -118,7 +118,7 @@ class Estimate
         return $this->clientPhone;
     }
 
-    public function setClientPhone(string $clientPhone): self
+    public function setClientPhone(int $clientPhone): self
     {
         $this->clientPhone = $clientPhone;
 
@@ -214,7 +214,7 @@ class Estimate
         return $this->pricefabric;
     }
 
-    public function setPricefabric(string $pricefabric): self
+    public function setPricefabric(int $pricefabric): self
     {
         $this->pricefabric = $pricefabric;
 

@@ -69,14 +69,19 @@ class EstimateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$estimate->getEstimatedate()) {
+                $estimate->setEstimatedate(new \DateTime());
+            }
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_estimate_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('estimate/edit.html.twig', [
+        return $this->render('dashboard/index.html.twig', [
             'estimate' => $estimate,
             'form' => $form,
+            'path' => './dashboard/pages/estimate/edit.html.twig',
         ]);
     }
 
