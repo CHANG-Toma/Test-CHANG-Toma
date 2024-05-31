@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen flex-col bg-white shadow-xl transition-all duration-300 ease-in-out absolute top-0 left-0 z-50"
+    <div class="fixed flex h-screen flex-col bg-white shadow-xl transition-all duration-300 ease-in-out top-0 left-0 z-50"
         :class="{ 'w-[4rem]': isOpen, 'w-[18rem]': !isOpen }">
 
         <!-- Header area with the burger menu and logo -->
@@ -28,7 +28,7 @@
                     <img src="../../svg/user.svg" alt="User" class="nav-icon" />
                     <span v-show="!isOpen">Liste des utilisateurs</span>
                 </a>
-                <a href="#"
+                <a href = "/estimate"
                     class="group flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors mn-2">
                     <img src="../../svg/estimate.svg" alt="estimate" class="nav-icon" />
                     <span v-show="!isOpen">Devis</span>

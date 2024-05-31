@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50, options: ['default' => 'ROLE_USER'], type: 'json')]
+    #[ORM\Column(length: 50, type: 'json')]
     private ?array $role = [];
 
     public function getId(): ?int
