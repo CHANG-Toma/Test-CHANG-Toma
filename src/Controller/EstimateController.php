@@ -72,7 +72,7 @@ class EstimateController extends AbstractController
             if (!$estimate->getEstimatedate()) {
                 $estimate->setEstimatedate(new \DateTime());
             }
-            
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_estimate_index', [], Response::HTTP_SEE_OTHER);
@@ -94,5 +94,31 @@ class EstimateController extends AbstractController
         }
 
         return $this->redirectToRoute('app_estimate_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/pdf', name: 'app_estimate_pdf', methods: ['GET'])]
+    public function downloadPdf(Request $request, Estimate $estimate, \Twig\Environment $twig): Response
+    {
+        // Configuration de dompdf
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->setPaper('A4', 'portrait');
+
+        // template html qui sera converti en pdf
+        $html = $twig->render('dashboard/pages/estimate/estimate_pdf.html.twig', [
+            'estimate' => $estimate
+        ]);
+
+        // charger le html dans dompdf
+        $dompdf->loadHtml($html);
+        // créer le pdf
+        $dompdf->render();
+        // Pour télécharger le pdf
+        $dompdf->stream("estimate-{$estimate->getId()}.pdf", [
+            'Attachment' => 0 // mettre à 1 pour télécharger directement
+        ]);
+
+        return new Response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf'
+        ]);
     }
 }

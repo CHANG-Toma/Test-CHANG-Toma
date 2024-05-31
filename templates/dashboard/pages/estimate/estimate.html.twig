@@ -50,6 +50,9 @@
 												Modifier
 											</a>
 											{{ include('dashboard/pages/estimate/_delete_form.html.twig') }}
+											<a href="{{ path('app_estimate_pdf', {'id': estimate.id}) }}" class="inline-flex items-center gap-x-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-2">
+												Télécharger PDF
+											</a>
 										</td>
 									</tr>
 								{% endfor %}
