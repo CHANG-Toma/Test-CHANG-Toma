@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// Modèle de données pour les utilisateurs avec tous ces champs  + accesseurs
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -44,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50, options: ['default' => 'ROLE_USER'], type: 'json')]
+    #[ORM\Column(length: 50, type: 'json')]
     private ?array $role = [];
 
     public function getId(): ?int

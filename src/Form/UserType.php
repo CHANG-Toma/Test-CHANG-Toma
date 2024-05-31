@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+// Création du formulaire de modification d'un utilisateur
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -32,14 +34,14 @@ class UserType extends AbstractType
                 ]
             )
             ->add('email', EmailType::class)
-            ->add('gender', ChoiceType::class, [
+            ->add('gender', ChoiceType::class, [ // type choix multiple
                 'choices' => [
                     'Homme' => 'Homme',
                     'Femme' => 'Femme',
                     'Autres' => 'Autres'
                 ],
-                'expanded' => false,
-                'multiple' => false,
+                'expanded' => false, //affiche sous forme de boutons radio
+                'multiple' => false, //sélection unique
                 'label' => 'Genre'
             ])
             ->add('rgpd', ChoiceType::class, [

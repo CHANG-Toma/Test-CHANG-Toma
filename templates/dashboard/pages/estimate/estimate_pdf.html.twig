@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Devis - {{ estimate.clientName }}</title>
+    <style>
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 12px;
+            padding: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+        th {
+            background-color: #f3f3f3;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .footer {
+            font-size: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lamusée</h1>
+        <h2>Référence Devis : {{ estimate.id }}</h2>
+        <p>Date d'émission: {{ estimate.expectedDeliveryDate|date('d/m/Y') }}</p>
+        <p>Date d'échéance: {{ estimate.expectedDeliveryDate|date('d/m/Y') }}</p>
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">Information du Client</th>
+        </tr>
+        <tr>
+            <td>Nom du Client</td>
+            <td>{{ estimate.clientName }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ estimate.clientEmail }}</td>
+        </tr>
+        <tr>
+            <td>Téléphone</td>
+            <td>{{ estimate.clientPhone }}</td>
+        </tr>
+        <tr>
+            <td>Adresse</td>
+            <td>{{ estimate.clientAddress }}, {{ estimate.clientCity }}</td>
+        </tr>
+    </table>
+
+	<table>
+        <tr>
+            <th colspan="2">Information du vetement</th>
+        </tr>
+        <tr>
+            <td>Type du vetement</td>
+            <td>{{ estimate.dresstype }}</td>
+        </tr>
+        <tr>
+            <td>Personnalisation</td>
+            <td>{{ estimate.customizations }}</td>
+        </tr>
+        <tr>
+            <td>Tissu</td>
+            <td>{{ estimate.fabric }}</td>
+        </tr>
+        <tr>
+            <td>Couleur du tissu</td>
+            <td>{{ estimate.fabricColor }}</td>
+        </tr>
+		<tr>
+			<td>Taille</td>
+			<td>{{ estimate.size }}</td>
+		</tr>
+		<tr>
+			<td>Quantité</td>
+			<td>{{ estimate.quantity }}</td>
+		</tr>
+
+    </table>
+
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Quantité</th>
+            <th>P.U. HT</th>
+            <th>Total HT</th>
+        </tr>
+        <tr>
+            <td>{{ estimate.dresstype }}</td>
+            <td>{{ estimate.quantity }}</td>
+            <td>{{ estimate.pricefabric|number_format(2, '.', ',') }} €</td>
+            <td>{{ estimate.totalExTax|number_format(2, '.', ',') }} €</td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        <p>Total HT: {{ estimate.totalExTax|number_format(2, '.', ',') }} €</p>
+        <p>TVA: {{ estimate.tva|number_format(2, '.', ',') }} €</p>
+        <p>Total TTC: {{ estimate.totalIncTax|number_format(2, '.', ',') }} €</p>
+        <p>Solde dû: {{ estimate.balandeDue|number_format(2, '.', ',') }} €</p>
+    </div>
+
+    <div class="footer">
+        <p>Conditions de paiement: Acompte de 20% à la signature, Solde à la livraison</p>
+        <p>Méthode de livraison: {{ estimate.deliveryMode }}</p>
+    </div>
+</body>
+</html>

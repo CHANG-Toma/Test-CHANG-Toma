@@ -16,6 +16,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+// Classe d'authentification de l'utilisateur avec email et mot de passe
+
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -26,31 +28,34 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+    // Fonction d'authentification de l'utilisateur
     public function authenticate(Request $request): Passport
     {
         $email = $request->getPayload()->getString('email');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
-        return new Passport(
-            new UserBadge($email),
-            new PasswordCredentials($request->getPayload()->getString('password')),
+        return new Passport( // Crée un nouveau passport
+            new UserBadge($email), // Récupère l'utilisateur avec son email
+            new PasswordCredentials($request->getPayload()->getString('password')), // Récupère le mot de passe de l'utilisateur
             [
-                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
+                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')), // Vérifie le jeton CSRF
                 new RememberMeBadge(),
             ]
         );
     }
 
+    // Fonction de redirection après authentification de l'utilisateur
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) { // Si l'utilisateur a été redirigé vers la page de connexion
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
+        return new RedirectResponse($this->urlGenerator->generate('app_user_index')); // Redirection vers la page d'accueil
     }
 
+    // Fonction de redirection après échec d'authentification de l'utilisateur
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

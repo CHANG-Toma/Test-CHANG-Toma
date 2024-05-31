@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
+    // Afficher le formulaire d'inscription
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
@@ -27,14 +28,12 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('password')->getData()
+                    $form->get('password')->getData() // récupère le mdp
                 )
             );
 
             $entityManager->persist($user);
             $entityManager->flush();
-
-            // peut envoyer un email de confirmation
 
             return $security->login($user, UserAuthenticator::class, 'main');
         }

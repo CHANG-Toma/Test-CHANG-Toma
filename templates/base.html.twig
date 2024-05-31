@@ -10,7 +10,10 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
+    {# Le bloc body est défini dans les templates enfants, il apparaitra ici directement #}
     <body>
         {% block body %}{% endblock %}
     </body>
+
 </html>

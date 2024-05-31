@@ -20,9 +20,12 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
+    
+    // Active VueLoaderPlugin pour traiter les fichiers .vue
     .enableVueLoader()
     .addPlugin(new VueLoaderPlugin())
 
+    // Active PostCSS pour les fichiers CSS (avec TailwindCSS)
     .enablePostCssLoader((options) => {
         options.postcssOptions = {
             config: './postcss.config.js'

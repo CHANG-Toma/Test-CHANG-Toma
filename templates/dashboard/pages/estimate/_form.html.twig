@@ -1,0 +1,55 @@
+{# Formulaire pour gérer le CRUD des devis #}
+{# Un seul form pour opti :) #}
+
+
+{% set isShow = app.request.attributes.get('_route') == 'app_estimate_show' %}
+{# pour gérer le mode d'affichage #}
+{% set isCreate = app.request.attributes.get('_route') == 'app_estimate_new' %}
+{# pour gérer le mode de création #}
+{% set isEdit = app.request.attributes.get('_route') == 'app_estimate_edit' %}
+{# pour gérer le mode d'édition #}
+
+{{ form_start(form, {'attr': {'class': 'space-y-3'}}) }}
+
+{% for estimate in form %}
+	{% if estimate.vars.name == '_token' %}
+		{# Pour cacher le token #}
+		{{ form_widget(estimate, {'attr': {'class': 'hidden'}}) }}
+	{% else %}
+		{% if isShow %}
+			{# Si le mode est affichage alors on met tout en readonly et on retire le btn save #}
+			{% if estimate.vars.name != 'save' %}
+				<div class="flex flex-col">
+					{{ form_label(estimate, null, {'label_attr': {'class': 'font-semibold text-gray-700'}}) }}
+					{# Mettre le symbole € pour les prix #}
+					{% if isShow and estimate.vars.name in ['pricefabric', 'totalExTax', 'tva', 'totalIncTax', 'balandeDue'] %}
+						<div class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" disabled>
+							{{ estimate.vars.value|number_format(2, ',', '.') }}
+							€
+						</div>
+					{% else %}
+						{{ form_widget(estimate, {'attr': {'class': 'form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm', 'readonly': 'readonly'}}) }}
+					{% endif %}
+				</div>
+			{% endif %}
+		{% else %}
+			{# Sinon on affiche tout normalement pour ajouter / modifier #}
+			{{ form_label(estimate, null, {'label_attr': {'class': 'font-semibold text-gray-700'}}) }}
+			{% if estimate.vars.name == 'save' %}
+				{# pour gérer le style du btn save #}
+				{{ form_widget(estimate, {'attr': {'class' : 'flex justify-center items-center gap-x-2 text-sm font-semibold text-white bg-black hover:bg-gray-800 rounded-lg px-3 py-2'}}) }}
+			{% else %}
+				{{ form_widget(estimate, {'attr': {'class': 'form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50'}}) }}
+			{% endif %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+<div class="flex justify-start">
+	{% if isShow %}
+		<a href="{{ path('app_estimate_edit', {'id': form.vars.value.id}) }}" class="flex justify-center items-center gap-x-2 text-sm font-semibold text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg px-3 py-2">Modifier</a>
+		<a href="{{ path('app_estimate_index') }}" class="ml-3 flex justify-center items-center gap-x-2 text-sm font-semibold text-white bg-gray-800 hover:bg-black rounded-lg px-3 py-2">Retour</a>
+	{% endif %}
+</div>
+
+{{ form_end(form, {'render_rest': false}) }}
